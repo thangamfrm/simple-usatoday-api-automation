@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="SimpleUSATodayAPISuite" verbose="3">
+ 
+  <test name="SimpleUSATodayAPI">
+    <classes>
+      <class name="com.thangamfrm.simpleapiautomation.SimpleUSATodayAPIAutomationTest" />
+    </classes>
+  </test>
+
+</suite>

@@ -1,0 +1,46 @@
+<project name="simple-usatoday-api-automation">
+
+    <property file="resources/overrides.properties"/>
+    <property file="resources/config.properties"/>
+
+    <property name="src.dir" value="${basedir}/src"/>
+    <property name="classes.dir" value="${basedir}/classes"/>
+    <property name="resources.dir" value="${basedir}/resources/"/>
+    <property name="lib.dir" value="${basedir}/lib"/>
+    <property name="testng.output.dir" value="${basedir}/testng-output"/>
+
+    <property name="test.suite" value="simple-usatoday-api-tests.xml"/>
+
+    <path id="classpath">
+        <pathelement location="${classes.dir}"/>
+        <fileset dir="${lib.dir}">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+
+    <taskdef name="testng" classpathref="classpath" classname="org.testng.TestNGAntTask"/>
+
+    <target name="clean">
+        <echo message="Cleaning Up..."/>
+        <delete dir="${testng.output.dir}" quiet="true" includeemptydirs="true"/>
+        <delete dir="${classes.dir}" quiet="true" includeemptydirs="true"/>
+        <echo message="Re-creating directories..."/>
+        <mkdir dir="${testng.output.dir}"/>
+        <mkdir dir="${classes.dir}"/>
+    </target>
+
+    <target name="compile" depends="clean">
+        <echo message="Compiling..."/>
+        <javac debug="true" includeantruntime="false" debuglevel="vars,lines,source" srcdir="${src.dir}" destdir="${classes.dir}"
+               encoding="iso-8859-1" classpathref="classpath"/>
+    </target>
+
+    <target name="run-suite" depends="clean,compile">
+        <echo message="Running Test Suite"/>
+        <testng outputDir="${testng.output.dir}" classpathref="classpath" failureProperty="test.failure">
+            <xmlfileset dir="${resources.dir}/" includes="${test.suite}"/>
+        </testng>
+        <echo message="Test Suite Execution Completed! Results: ${testng.output.dir}"/>
+    </target>
+
+</project>

@@ -1,0 +1,8 @@
+testng-output
+test-output/
+classes/
+.settings
+.project
+.classpath
+resources/overrides.properties
+
